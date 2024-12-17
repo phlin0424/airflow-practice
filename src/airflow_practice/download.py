@@ -8,15 +8,16 @@ from airflow_practice.config import settings
 logger = logging.getLogger(__name__)
 
 
-def download_file(filename: Path) -> None:
+def download_file(filename: str, yr: str | int = 2020) -> None:
     """Function to download the source data into the data lake.
 
     Args:
-        filename (_type_): _description_
+        filename (Path): _description_
+        yr (str | int, optional): _description_. Defaults to 2020.
     """
     # Get the data from the data source
     r = requests.get(
-        f"{settings.data_source_prefix}/2020/{filename}",
+        f"{settings.data_source_prefix}/{yr}/{filename}",
         timeout=10,
     )
     r.raise_for_status()

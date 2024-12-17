@@ -21,8 +21,8 @@ class Config(BaseSettings):
         description="The path guiding to the data lake.",
     )
 
-    data_source_prefix: Path = Field(
-        default=Path("https://www1.ncdc.noaa.gov/pub/data/uscrn/products/subhourly01"),
+    data_source_prefix: str = Field(
+        default="https://www.ncei.noaa.gov/pub/data/uscrn/products/subhourly01",
         description="Data source",
     )
 

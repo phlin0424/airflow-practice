@@ -8,6 +8,7 @@ packages = [
     {include = "src"}
 ]
 dependencies = [
+    "matplotlib>=3.10.0",
     "pandas>=2.2.3",
     "pydantic-settings>=2.7.0",
     "pydantic>=2.10.3",

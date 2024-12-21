@@ -88,3 +88,7 @@ target/
 
 # Notebook for test
 test.ipynb
+
+
+# downloaded data
+src/airflow_practice/data/

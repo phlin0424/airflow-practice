@@ -1,18 +1,20 @@
+from pathlib import Path
+
 import logging
 
 import requests
-
 from airflow_practice.config import settings
 
 logger = logging.getLogger(__name__)
 
 
-def download_file(filename: str, yr: str | int = 2020) -> None:
+def download_file(filename: str, yr: str | int = 2020, data_dir: str | Path = "./") -> None:
     """Function to download the source data into the data lake.
 
     Args:
-        filename (Path): _description_
+        filename (str): _description_
         yr (str | int, optional): _description_. Defaults to 2020.
+        data_dir (str | Path, optional): _description_. Defaults to "./".
     """
     # Get the data from the data source
     r = requests.get(
@@ -22,7 +24,12 @@ def download_file(filename: str, yr: str | int = 2020) -> None:
     r.raise_for_status()
 
     # Path to store the data (Data lake)
-    path = settings.data_path / ".raw"
+    path = Path(data_dir) if not isinstance(data_dir, Path) else data_dir
+
+    # Check the existence of the specified path
+    if not path.exists():
+        path.mkdir(parents=True, exist_ok=True)
+        logger.info("Create %s", path)
 
     # Download the data into the data lake
     with (path / filename).open("wb") as f:

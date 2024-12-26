@@ -46,14 +46,21 @@ services:
     volumes:
       - ./scripts:/opt/scripts
 
-  # Presto
+  # Presto server 
   presto-server:
     image: wdpbigdata/presto:latest
     depends_on:
       - metastore
+    platform: linux/amd64
+    ports:
+      - "8080:8080" 
+
+  # Presto CLI         
   presto-cli:
     image: wdpbigdata/presto:latest
     entrypoint: /opt/presto-cli --server http://presto-server:8080
+    # platform: linux/amd64
+    # tty: true 
 
   # Python
   python:
